@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public games! : Array<Game>;
   private routeSub!: Subscription;
   private gameSub! : Subscription;
-  
+
   constructor(    
     private httpService: HttpService,
     private router: Router,
@@ -33,14 +33,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchGames(sort: string, search?: string): void {
     this.gameSub = this.httpService
       .getGameList(sort, search)
-      .subscribe((gameList: APIResponse<Game>) => {
-        this.games = gameList.results;
-        console.log(gameList);
+      .subscribe((res: APIResponse<Game>) => {
+        this.games = res.results;
+        console.log("here is the data object:"+res);
       });
   }
 
-  openGameDetails(id: string): void {
-    this.router.navigate(['details', id]);
+  openGameDetails(name: string): void {
+    this.router.navigate(['details', name]);
   }
 
   ngOnDestroy(): void {
